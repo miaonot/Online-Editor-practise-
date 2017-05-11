@@ -1,0 +1,24 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: miaonot
+ * Date: 2017/5/9
+ * Time: 上午11:03
+ */
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>test</title>
+    </head>
+    <body>
+        test
+        <?php
+        require __DIR__ . '/../src/models/User.models.php';
+            $user = User::all();
+            var_dump($user);
+
+        ?>
+    </body>
+</html>
