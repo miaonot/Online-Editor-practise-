@@ -83,8 +83,9 @@
                 xmlhttp.onreadystatechange = function() {
                     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                         if (xmlhttp.responseText === "error") {
-                            Materialize.toast("用户名已存在", 3000);
+                            Materialize.toast("用户名或密码错误", 3000);
                         } else {
+                            document.cookie = "username=" + userName.value + ";" + -1;
                             window.location.href = "index";
                         }
                     }
@@ -92,7 +93,7 @@
                         Materialize.toast("网络错误，请重试", 3000);
                     }
                 };
-                xmlhttp.open("POST", "../public/join", true);
+                xmlhttp.open("POST", "../public/login", true);
                 xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xmlhttp.send(data);
             }

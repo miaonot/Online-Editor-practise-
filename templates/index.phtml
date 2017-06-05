@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>注册</title>
+    <title>主页</title>
     <link href="../public/css/materialize.css" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="../public/js/jquery-2.1.1.min.js" type="text/javascript"></script>
@@ -61,7 +61,16 @@
         <div class="col m3"></div>
         <div class="col m6">
             <h3>欢迎使用在线文本编辑</h3>
-            请<a href="../public/join">注册</a>或<a href="../public/login">登陆</a>
+            <?php
+            if ($_COOKIE['username'] != null) {
+                echo '您好'.$_COOKIE['username'].'</br>';
+                echo '<a href="../public/editor">开始使用编辑器</a>';
+            } else {
+                echo '
+                      请<a href="../public/join">注册</a>或<a href="../public/login">登陆</a>
+                        ';
+            }
+            ?>
         </div>
         <div class="col m3"></div>
     </div>
@@ -73,11 +82,11 @@
                 <!--TODO: Write the description -->
                 <li>
                     <div class="collapsible-header"><span class="badge"></span><i class="material-icons">info_outline</i>前端</div>
-                    <div class="collapsible-body"><p></p></div>
+                    <div class="collapsible-body"><p>Materialize - 基于Google提出的Material Design而设计的前端框架，依赖于Jquery和Google Icon（图标）</p></div>
                 </li>
                 <li>
                     <div class="collapsible-header"><span class="badge"></span><i class="material-icons">info_outline</i>后端</div>
-                    <div class="collapsible-body"><p></p></div>
+                    <div class="collapsible-body"><p>Slim - 轻量级的PHP框架，遵循PSR7标准，用于构建路由<br/>Monolog - 记录log<br/>Eloquent - 连接数据库</p></div>
                 </li>
             </ul>
         </div>
