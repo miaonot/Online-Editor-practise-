@@ -65,7 +65,7 @@
                     </div>
                     <div class="card-action">
                         <a class="waves-effect waves-teal btn-flat" id="submit" onclick="login()">
-                            <span class="teal-text text-lighten-2">登陆</span>
+                            <span class="teal-text text-lighten-2">登录</span>
                         </a>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         if (xmlhttp.responseText === "error") {
                             Materialize.toast("用户名或密码错误", 3000);
                         } else {
-                            document.cookie = "username=" + userName.value + ";" + -1;
+//                            document.cookie = "username=" + userName.value + ";" + -1;
                             window.location.href = "index";
                         }
                     }

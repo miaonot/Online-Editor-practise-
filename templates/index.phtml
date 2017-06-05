@@ -1,20 +1,48 @@
+<?php
+/**
+* Created by PhpStorm.
+* User: miaonot
+* Date: 2017/6/5
+* Time: 下午11:54
+*/
+?>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>主页</title>
-    <link href="../public/css/materialize.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="../public/js/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <script src="../public/js/materialize.js" type="text/javascript"></script>
-</head>
-<body>
-    <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container">
-            <!-- TODO: href and Logo need to be changed -->
-            <a href="#" class="brand-logo">Logo</a>
-            <ul class="right hide-on-med-and-down">
-                <?php
-                    if ($_COOKIE['username'] != null) {
+    <head>
+        <meta charset="UTF-8">
+        <title>主页</title>
+        <link href="../public/css/materialize.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="../public/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="../public/js/materialize.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <!-- TODO: href and Logo need to be changed -->
+                <a href="#" class="brand-logo">Logo</a>
+                <ul class="right hide-on-med-and-down">
+                    <?php
+                        if ($_SESSION['username'] != null) {
+                            echo '
+                                <li>
+                                    <a href="../public/logout">登出</a>
+                                </li>
+                                ';
+                        } else {
+                            echo '
+                                <li>
+                                    <a href="../public/join">注册</a>
+                                </li>
+                                <li>
+                                    <a href="../public/login">登陆</a>
+                                </li>
+                                ';
+                        }
+                    ?>
+                </ul>
+                <ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
+                    <?php
+                    if ($_SESSION['username'] != null) {
                         echo '
                             <li>
                                 <a href="../public/logout">登出</a>
@@ -24,122 +52,62 @@
                         echo '
                             <li>
                                 <a href="../public/join">注册</a>
-                            </li>
-                            <li>
                                 <a href="../public/login">登陆</a>
                             </li>
                             ';
                     }
-                ?>
-            </ul>
-            <ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
+                    ?>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse">
+                    <i class="material-icons">menu</i>
+                </a>
+            </div>
+        </nav>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col m3"></div>
+            <div class="col m6">
+                <h3>欢迎使用在线文本编辑</h3>
                 <?php
-                if ($_COOKIE['username'] != null) {
-                    echo '
-                        <li>
-                            <a href="../public/logout">登出</a>
-                        </li>
-                        ';
+                if ($_SESSION['username'] != null) {
+                    echo '您好'.$_SESSION['username'].'</br>';
+                    echo '<a href="../public/editor">开始使用编辑器</a>';
                 } else {
                     echo '
-                        <li>
-                            <a href="../public/join">注册</a>
-                            <a href="../public/login">登陆</a>
-                        </li>
-                        ';
+                          请<a href="../public/join">注册</a>或<a href="../public/login">登陆</a>
+                            ';
                 }
                 ?>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse">
-                <i class="material-icons">menu</i>
-            </a>
+            </div>
+            <div class="col m3"></div>
         </div>
-    </nav>
-    <div class="row"></div>
-    <div class="row"></div>
-    <div class="row">
-        <div class="col m3"></div>
-        <div class="col m6">
-            <h3>欢迎使用在线文本编辑</h3>
-            <?php
-            if ($_COOKIE['username'] != null) {
-                echo '您好'.$_COOKIE['username'].'</br>';
-                echo '<a href="../public/editor">开始使用编辑器</a>';
-            } else {
-                echo '
-                      请<a href="../public/join">注册</a>或<a href="../public/login">登陆</a>
-                        ';
-            }
-            ?>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col m3"></div>
+            <div class="col m6">
+                <ul class="collapsible" data-collapsible="accordion">
+                    <!--TODO: Write the description -->
+                    <li>
+                        <div class="collapsible-header"><span class="badge"></span><i class="material-icons">info_outline</i>前端</div>
+                        <div class="collapsible-body"><p>Materialize - 基于Google提出的Material Design而设计的前端框架，依赖于Jquery</p></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><span class="badge"></span><i class="material-icons">info_outline</i>后端</div>
+                        <div class="collapsible-body"><p>Slim - 轻量级的PHP框架，遵循PSR7标准，用于构建路由<br/>Monolog - 记录log<br/>Eloquent - 连接数据库</p></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col m3"></div>
         </div>
-        <div class="col m3"></div>
-    </div>
-    <div class="row"></div>
-    <div class="row">
-        <div class="col m3"></div>
-        <div class="col m6">
-            <ul class="collapsible" data-collapsible="accordion">
-                <!--TODO: Write the description -->
-                <li>
-                    <div class="collapsible-header"><span class="badge"></span><i class="material-icons">info_outline</i>前端</div>
-                    <div class="collapsible-body"><p>Materialize - 基于Google提出的Material Design而设计的前端框架，依赖于Jquery和Google Icon（图标）</p></div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><span class="badge"></span><i class="material-icons">info_outline</i>后端</div>
-                    <div class="collapsible-body"><p>Slim - 轻量级的PHP框架，遵循PSR7标准，用于构建路由<br/>Monolog - 记录log<br/>Eloquent - 连接数据库</p></div>
-                </li>
-            </ul>
-        </div>
-        <div class="col m3"></div>
-    </div>
-    <script>
-        (function($){
-            $(function(){
+        <script>
+            (function($){
+                $(function(){
 
-                $('.button-collapse').sideNav();
+                    $('.button-collapse').sideNav();
 
-            }); // end of document ready
-        })(jQuery); // end of jQuery name space
-    </script>
-</body>
+                }); // end of document ready
+            })(jQuery); // end of jQuery name space
+        </script>
+    </body>
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--    <head>-->
-<!--        <meta charset="utf-8"/>-->
-<!--        <title>Slim 3</title>-->
-<!--        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>-->
-<!--        <style>-->
-<!--            body {-->
-<!--                margin: 50px 0 0 0;-->
-<!--                padding: 0;-->
-<!--                width: 100%;-->
-<!--                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;-->
-<!--                text-align: center;-->
-<!--                color: #aaa;-->
-<!--                font-size: 18px;-->
-<!--            }-->
-<!---->
-<!--            h1 {-->
-<!--                color: #719e40;-->
-<!--                letter-spacing: -3px;-->
-<!--                font-family: 'Lato', sans-serif;-->
-<!--                font-size: 100px;-->
-<!--                font-weight: 200;-->
-<!--                margin-bottom: 0;-->
-<!--            }-->
-<!--        </style>-->
-<!--    </head>-->
-<!--    <body>-->
-<!--        <h1>Slim</h1>-->
-<!--        <div>a microframework for PHP</div>-->
-<!---->
-<!--        --><?php //if (isset($name)) : ?>
-<!--            <h2>Hello --><?//= htmlspecialchars($name); ?><!--!</h2>-->
-<!--        --><?php //else: ?>
-<!--            <p>Try <a href="http://www.slimframework.com">SlimFramework</a>-->
-<!--        --><?php //endif; ?>
-<!--    </body>-->
-<!--</html>-->
