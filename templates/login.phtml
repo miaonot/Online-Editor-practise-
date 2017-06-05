@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: miaonot
- * Date: 2017/5/10
- * Time: 下午1:38
+ * Date: 2017/5/17
+ * Time: 下午7:53
  */
 ?>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>注册</title>
+        <title>登陆</title>
         <link href="../public/css/materialize.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="../public/js/jquery-2.1.1.min.js" type="text/javascript"></script>
@@ -22,12 +22,12 @@
                 <a href="../public/index" class="brand-logo">Logo</a>
                 <ul class="right hide-on-med-and-down">
                     <li>
-                        <a href="../public/login">登陆</a>
+                        <a href="../public/join">注册</a>
                     </li>
                 </ul>
                 <ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
                     <li>
-                        <a href="../public/login">登陆</a>
+                        <a href="../public/join">注册</a>
                     </li>
                 </ul>
                 <a href="#" data-activates="nav-mobile" class="button-collapse">
@@ -50,27 +50,22 @@
                         <form id="form">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="user_name" type="text" class="validate">
+                                    <!-- TODO: check username -->
+                                    <input id="user_name" type="text" class="validate" onblur="">
                                     <label id="user_name_label" for="user_name">用户名</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="password" type="password" class="validate" placeholder="至少需要六位">
+                                    <input id="password" type="password" class="validate">
                                     <label id="password_label" for="password">密码</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="password_confirm" type="password" class="validate" placeholder="重复密码">
-                                    <label id="password_confirm_label" for="password_confirm">确认密码</label>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="card-action">
-                        <a class="waves-effect waves-teal btn-flat" id="submit" onclick="validate()">
-                            <span class="teal-text text-lighten-2">注册</span>
+                        <a class="waves-effect waves-teal btn-flat" id="submit" onclick="login()">
+                            <span class="teal-text text-lighten-2">登陆</span>
                         </a>
                     </div>
                 </div>
@@ -79,43 +74,27 @@
         </div>
         <div class="drag-target" data-sidenav="nav-mobile" style="touch-action: pan-y; left: 0px;"></div>
         <script type="text/javascript">
-            function validate() {
+            <!-- TODO: -->
+            function login() {
                 var userName = document.getElementById("user_name");
                 var password = document.getElementById("password");
-                var password_confirm = document.getElementById("password_confirm");
-                var flag = true;
-                if (!userName.value.match(/.{1,}/)) {
-                    Materialize.toast("用户名不能为空", 3000);
-                    flag = false;
-                    userName.focus();
-                }else if (!password.value.match(/[^\n]{6,}/)) {
-                    Materialize.toast("密码至少需要6位", 3000);
-                    flag = false;
-                    password.focus();
-                }else if (password.value !== password_confirm.value) {
-                    Materialize.toast("两次输入的密码不一致", 3000);
-                    flag = false;
-                    password_confirm.focus();
-                }
-                if (flag === true) {
-                    var data = "username=" + userName.value + "&password=" + password.value;
-                    var xmlhttp = new XMLHttpRequest();
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-                            if (xmlhttp.responseText === "error") {
-                                Materialize.toast("用户名已存在", 3000);
-                            } else {
-                                window.location.href = "index";
-                            }
+                var data = "username=" + userName.value + "&password=" + password.value;
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                        if (xmlhttp.responseText === "error") {
+                            Materialize.toast("用户名已存在", 3000);
+                        } else {
+                            window.location.href = "index";
                         }
-                        else if (xmlhttp.readyState === 4 && xmlhttp.status !== 200) {
-                            Materialize.toast("网络错误，请重试", 3000);
-                        }
-                    };
-                    xmlhttp.open("POST", "../public/join", true);
-                    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xmlhttp.send(data);
-                }
+                    }
+                    else if (xmlhttp.readyState === 4 && xmlhttp.status !== 200) {
+                        Materialize.toast("网络错误，请重试", 3000);
+                    }
+                };
+                xmlhttp.open("POST", "../public/join", true);
+                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xmlhttp.send(data);
             }
             (function($){
                 $(function(){
